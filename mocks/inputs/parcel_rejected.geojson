@@ -1,0 +1,27 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Parcela Problemática",
+        "plot_id": "MICH-ZIT-999",
+        "crop": "avocado",
+        "owner": "Illegal Exporter Inc.",
+        "notes": "This parcel has deforestation after 2020 cutoff date"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-102.250000, 19.350000],
+            [-102.255000, 19.350500],
+            [-102.255500, 19.345000],
+            [-102.249500, 19.345200],
+            [-102.250000, 19.350000]
+          ]
+        ]
+      }
+    }
+  ]
+}
