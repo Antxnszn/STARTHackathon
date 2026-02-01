@@ -1,0 +1,40 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Huerta La Ladera",
+                "crop": "aguacate",
+                "area_ha": 12.5
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            -101.8550,
+                            19.5120
+                        ],
+                        [
+                            -101.8480,
+                            19.5120
+                        ],
+                        [
+                            -101.8480,
+                            19.5180
+                        ],
+                        [
+                            -101.8550,
+                            19.5180
+                        ],
+                        [
+                            -101.8550,
+                            19.5120
+                        ]
+                    ]
+                ]
+            }
+        }
+    ]
+}
