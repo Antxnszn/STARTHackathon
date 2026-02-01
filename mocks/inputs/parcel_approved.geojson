@@ -1,0 +1,26 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Huerta San Miguel - Lote A",
+        "plot_id": "MICH-URU-001",
+        "crop": "avocado",
+        "owner": "Avocados From Mexico S.A."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-102.048215, 19.412301],
+            [-102.052100, 19.412550],
+            [-102.052850, 19.408020],
+            [-102.047500, 19.408100],
+            [-102.048215, 19.412301]
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "submission_type": "DDS_IMPORT",
+  "version": "2.1",
+  "status": "REJECTED",
+  "rejection_reasons": [
+    {
+      "code": "DEFORESTATION_DETECTED",
+      "message": "Tree cover loss of 3.5 hectares detected after December 31, 2020 cutoff date",
+      "details": {
+        "loss_2022_ha": 2.35,
+        "loss_2023_ha": 1.15,
+        "total_loss_ha": 3.5
+      }
+    }
+  ],
+  "header": {
+    "reference_number": null,
+    "operator": {
+      "name": "Illegal Exporter Inc.",
+      "eori": "MX999999999999",
+      "address": "Unknown, Michoacán, México"
+    },
+    "destination_market": "NL"
+  },
+  "commodity": {
+    "hs_code": "08044000",
+    "scientific_name": "Persea americana",
+    "trade_name": "Hass Avocado",
+    "quantity": {
+      "amount": 5000.00,
+      "unit": "KGM"
+    }
+  },
+  "geolocation": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "plot_id": "MICH-ZIT-999"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [-102.250000, 19.350000],
+              [-102.255000, 19.350500],
+              [-102.255500, 19.345000],
+              [-102.249500, 19.345200],
+              [-102.250000, 19.350000]
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "compliance": {
+    "deforestation_free_post_2020": false,
+    "relevant_legislation_check": false,
+    "audit_metadata": {
+      "engine": "GreenPass v1.0",
+      "verification_timestamp": "2026-01-15T12:45:00Z",
+      "water_risk_assessment": "NOT_EVALUATED",
+      "climate_suitability": "NOT_EVALUATED",
+      "carbon_footprint_tonnes": 1.75
+    }
+  },
+  "greenpass_reference": null,
+  "generated_at": "2026-01-15T12:45:00Z"
+}

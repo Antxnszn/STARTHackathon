@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "total_loss_ha": 2.35,
+      "umd_tree_cover_loss__year": 2022
+    },
+    {
+      "total_loss_ha": 1.15,
+      "umd_tree_cover_loss__year": 2023
+    }
+  ],
+  "status": "success",
+  "message": "Tree cover loss detected in the analyzed area"
+}

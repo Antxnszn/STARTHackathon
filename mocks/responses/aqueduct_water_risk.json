@@ -1,0 +1,13 @@
+{
+  "latitude": 19.4123,
+  "longitude": -102.0482,
+  "zone": "michoacan_alta",
+  "baseline_water_stress": "Low-Medium (10-20%)",
+  "baseline_water_stress_score": 1.5,
+  "water_depletion": "Low (<5%)",
+  "water_depletion_score": 0.8,
+  "interannual_variability": "Medium (0.5-0.75)",
+  "interannual_variability_score": 0.6,
+  "overall_water_risk": "Low-Medium",
+  "overall_water_risk_score": 1.2
+}
