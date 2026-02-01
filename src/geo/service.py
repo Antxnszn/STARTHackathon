@@ -3,6 +3,7 @@ Geo Service - Spatial Analysis Business Logic
 """
 from datetime import date, datetime
 from typing import Dict, Any
+import logging
 
 from src.geo.schemas.requests import GeoAnalysisRequest
 from src.geo.schemas.responses import (
@@ -20,6 +21,8 @@ from src.shared.geometry import (
     get_vertex_count,
     is_polygon_in_ocean,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class GeoService:
@@ -99,32 +102,61 @@ class GeoService:
         """
         try:
             # Try to call GFW API
+            # Limit end_year to 2024 (latest available data) or current year if earlier
+            current_year = datetime.now().year
+            end_year = min(current_year, 2024)  # GFW data typically available up to previous year
+            
+            logger.info(f"Checking deforestation from {cutoff_date.year + 1} to {end_year}")
+            
             result = await self.gfw_client.check_tree_cover_loss(
                 geometry=geometry,
                 start_year=cutoff_date.year + 1,  # Year after cutoff
-                end_year=datetime.now().year
+                end_year=end_year
             )
             
-            total_loss = sum(r.get("total_loss_ha", 0) for r in result.get("data", []))
+            # Debug: Log the raw response
+            logger.info(f"GFW API response: {result}")
+            
+            # Process loss data - handle None values properly
+            data = result.get("data", [])
+            total_loss = 0.0
+            for r in data:
+                loss_ha = r.get("total_loss_ha")
+                # Handle None, 0, or numeric values
+                if loss_ha is not None:
+                    try:
+                        total_loss += float(loss_ha)
+                    except (ValueError, TypeError):
+                        logger.warning(f"Invalid loss_ha value: {loss_ha}")
+            
+            logger.info(f"Total loss calculated: {total_loss} ha from {len(data)} records")
             
             return DeforestationAnalysis(
                 is_deforestation_free=total_loss == 0,
-                alerts_count=len(result.get("data", [])),
+                alerts_count=len(data),
                 total_loss_ha_post_cutoff=total_loss,
                 analysis_period=AnalysisPeriod(
                     start=date(cutoff_date.year + 1, 1, 1),
-                    end=date(datetime.now().year, 12, 31)
+                    end=date(end_year, 12, 31)
                 )
             )
         except Exception as e:
-            # Fallback to mock for hackathon demo
-            print(f"GFW API error (using mock): {e}")
+            # On API error, be conservative: assume deforestation may exist
+            # This prevents false positives (approving when there might be deforestation)
+            logger.error(f"GFW API error - cannot verify deforestation status: {e}", exc_info=True)
+            logger.warning("Falling back to conservative assumption: deforestation status UNKNOWN")
+            
+            # Return as NON-COMPLIANT when API fails (conservative approach)
+            # This ensures we don't approve parcels when we can't verify
+            current_year = datetime.now().year
+            end_year = min(current_year, 2024)
+            
             return DeforestationAnalysis(
-                is_deforestation_free=True,
+                is_deforestation_free=False,  # Conservative: assume non-compliant if we can't verify
                 alerts_count=0,
-                total_loss_ha_post_cutoff=0.0,
+                total_loss_ha_post_cutoff=0.0,  # Unknown, but marked as non-compliant
                 analysis_period=AnalysisPeriod(
                     start=date(cutoff_date.year + 1, 1, 1),
-                    end=date(datetime.now().year, 12, 31)
+                    end=date(end_year, 12, 31)
                 )
             )

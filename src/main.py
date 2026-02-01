@@ -1,6 +1,7 @@
 """
 GreenPass Backend - Main Application Entry Point
 """
+import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -8,6 +9,13 @@ from src.config import settings
 from src.core.router import router as core_router
 from src.geo.router import router as geo_router
 from src.env.router import router as env_router
+
+# Configure logging
+logging.basicConfig(
+    level=getattr(logging, settings.log_level.upper()),
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
+logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title="GreenPass EUDR API",
@@ -17,10 +25,12 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
+logger.info("Starting GreenPass EUDR API")
+
 # CORS Middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.cors_origins,
+    allow_origins=settings.cors_origins_list,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

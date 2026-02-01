@@ -164,7 +164,8 @@ class EnvService:
         """
         Calculate carbon footprint if deforestation was detected.
         
-        Uses Climatiq API with tropical forest emission factors.
+        Uses Climatiq API with land use change emission factors.
+        Falls back to IPCC default if API fails.
         """
         if not has_deforestation:
             return CarbonAnalysis(
@@ -175,26 +176,33 @@ class EnvService:
             )
         
         try:
+            # Use forest_to_cropland as default - most relevant for agricultural conversion
             result = await self.climatiq.estimate_land_use_emissions(
-                area_ha=area_hectares
+                area_ha=area_hectares,
+                conversion_type="forest_to_cropland"
             )
             
             co2e_kg = result.get("co2e", 0)
             co2e_tonnes = co2e_kg / 1000  # Convert kg to tonnes
             
+            emission_factor = result.get("emission_factor", {})
+            factor_name = emission_factor.get("name", "unknown")
+            factor_id = emission_factor.get("id", "unknown")
+            
             return CarbonAnalysis(
                 estimated_co2e_tonnes=round(co2e_tonnes, 2),
                 calculation_applicable=True,
-                reason=f"Calculated for {area_hectares:.2f} ha of tropical forest loss",
-                emission_factor_used=result.get("emission_factor", {}).get("id", "unknown")
+                reason=f"Calculated for {area_hectares:.2f} ha using '{factor_name}'",
+                emission_factor_used=factor_id
             )
         except Exception as e:
-            print(f"Climatiq error (using estimate): {e}")
+            print(f"Climatiq error (using IPCC fallback): {e}")
             # Fallback: IPCC estimate ~500 tonnes CO2/ha for tropical forest
-            estimated = area_hectares * 500
+            from src.env.clients.climatiq_client import IPCC_DEFAULT_TROPICAL_FOREST_TCO2E_PER_HA
+            estimated = area_hectares * IPCC_DEFAULT_TROPICAL_FOREST_TCO2E_PER_HA
             return CarbonAnalysis(
                 estimated_co2e_tonnes=round(estimated, 2),
                 calculation_applicable=True,
-                reason=f"Estimated using IPCC default (500 tCO2e/ha) for {area_hectares:.2f} ha",
+                reason=f"Estimated using IPCC default ({IPCC_DEFAULT_TROPICAL_FOREST_TCO2E_PER_HA:.0f} tCO2e/ha) for {area_hectares:.2f} ha",
                 emission_factor_used="IPCC_default_tropical_forest"
             )

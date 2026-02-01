@@ -59,8 +59,8 @@ async def test_gfw_api():
         
         headers = {"Content-Type": "application/json"}
         if gfw_api_key:
-            headers["Authorization"] = f"Bearer {gfw_api_key}"
-            print_success(f"Using GFW API Key: {gfw_api_key[:4]}...***")
+            headers["x-api-key"] = gfw_api_key
+            print_success(f"Using GFW API Key: {gfw_api_key[:4]}...*** (Header: x-api-key)")
         else:
             print_warning("No GFW_API_KEY found in .env - requests might fail")
 
@@ -177,19 +177,31 @@ async def test_climatiq_api():
         print("To test, get a free API key from: https://www.climatiq.io/")
         return
     
+    print_success(f"Using API Key: {api_key[:4]}...***")
+    
     url = "https://api.climatiq.io/data/v1/estimate"
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
     }
+    
+    # Emission factor IDs from Climatiq (UUIDs for land use change)
+    EMISSION_FACTORS = {
+        "forest_to_cropland": "71926a7e-bede-8739-9a82-804e67ae1a46",
+        "forest_to_grassland": "c6d40a10-e042-86ce-97b3-a8ac0453872d",
+        "land_to_cropland": "883218bd-6d83-8af2-b1c3-26f0f4fc8e2a",
+    }
+    
+    # Use UUID directly (no data_version needed with id selector)
     payload = {
         "emission_factor": {
-            "activity_id": "land_use_change-forests-type_tropical_rainforest",
-            "data_version": "^21"
+            "id": EMISSION_FACTORS["forest_to_cropland"]
         },
         "parameters": {
             "area": 10.0,
-            "area_unit": "ha"
+            "area_unit": "ha",
+            "time": 1,
+            "time_unit": "year"
         }
     }
     
@@ -198,15 +210,58 @@ async def test_climatiq_api():
     
     async with httpx.AsyncClient(timeout=30.0) as client:
         try:
+            print("\n🧮 Estimating CO2e for 10 ha of forest converted to cropland...")
             response = await client.post(url, json=payload, headers=headers)
-            print(f"\nStatus: {response.status_code}")
+            print(f"Status: {response.status_code}")
             
             if response.status_code == 200:
                 data = response.json()
                 print_success("Carbon estimate received!")
                 print_json(data)
+                
+                # Calculate results
+                co2e_kg = data.get("co2e", 0)
+                co2e_tonnes = co2e_kg / 1000
+                emission_factor = data.get("emission_factor", {})
+                
+                print(f"\n{'='*40}")
+                print(f"📊 CARBON FOOTPRINT ANALYSIS:")
+                print(f"   Area analyzed: 10 ha")
+                print(f"   CO2e: {co2e_kg:,.0f} kg = {co2e_tonnes:,.1f} tonnes")
+                print(f"   Per hectare: {co2e_tonnes/10:,.1f} tonnes CO2e/ha")
+                print(f"   Factor: {emission_factor.get('name', 'N/A')}")
+                print(f"   Source: {emission_factor.get('source', 'N/A')}")
+                print(f"   Region: {emission_factor.get('region', 'N/A')}")
+                print(f"{'='*40}")
+                return
+            
+            print_error(f"Estimate failed: {response.text}")
+
+            # Fallback: Search for valid factors
+            print("\n🔍 Searching for available 'Land Use Change' factors...")
+            search_url = "https://api.climatiq.io/data/v1/search"
+            search_params = {
+                "query": "forest cropland",
+                "category": "Land Use Change", 
+                "data_version": "^30",
+                "results_per_page": 10
+            }
+            
+            search_res = await client.get(search_url, params=search_params, headers=headers)
+            print(f"Search Status: {search_res.status_code}")
+            
+            if search_res.status_code == 200:
+                results = search_res.json().get("results", [])
+                if results:
+                    print(f"Found {len(results)} factors:")
+                    for r in results:
+                        print(f"  - ID: {r['id']}")
+                        print(f"    Name: {r['name']}")
+                        print(f"    Unit Type: {r.get('unit_type')}")
+                else:
+                    print_warning("No emission factors found")
             else:
-                print_error(f"Failed: {response.text[:500]}")
+                print_error(f"Search failed: {search_res.text}")
                 
         except Exception as e:
             print_error(f"Climatiq Error: {type(e).__name__}: {e}")

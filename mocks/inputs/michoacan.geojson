@@ -1,0 +1,26 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Polígono de Usuario",
+        "location": "Cerca de Zirahuén, Michoacán",
+        "description": "Polígono definido por coordenadas manuales",
+        "area_estimada": "Calculada por el visor"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-101.85579299926759, 19.52326975620081],
+            [-101.86338901519777, 19.520155233059555],
+            [-101.85373306274415, 19.514735010718574],
+            [-101.84875488281251, 19.519508051887833],
+            [-101.85579299926759, 19.52326975620081]
+          ]
+        ]
+      }
+    }
+  ]
+}
