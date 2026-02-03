@@ -11,7 +11,7 @@ export default function Header() {
         <button className="flex items-center gap-2 bg-[#2d4a2d] hover:bg-[#385c38] px-4 py-2 rounded text-sm border border-[#3e663e] transition-all text-bone-white">
           <UploadCloud className="w-4 h-4" /> Ingesta GeoJSON
         </button>
-        <button className="flex items-center gap-2 bg-[#fbbf24] hover:bg-[#f59e0b] text-[#1a2e1a] px-4 py-2 rounded text-sm font-bold transition-all">
+        <button className="flex items-center gap-2 bg-[#B5CC50] hover:bg-[#f59e0b] text-[#1a2e1a] px-4 py-2 rounded text-sm font-bold transition-all">
           <Download className="w-4 h-4" /> Reporte Consolidado
         </button>
       </div>

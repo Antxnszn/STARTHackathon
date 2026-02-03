@@ -8,29 +8,28 @@ export default function StatsGrid() {
       <div className="bg-[#243b24] p-4 rounded border border-[#2d4a2d]">
         <p className="text-[10px] text-[#a8bba8] uppercase font-bold mb-1">Valor en Riesgo</p>
         <div className="flex justify-between items-end">
-          <span className="text-2xl font-mono font-bold text-bone-white/50">--</span>
-          <span className="text-xs text-[#a8bba8] font-mono">sin datos</span>
+          <span className="text-xl font-mono font-bold text-bone-white/50">Pronto</span>
+          <span className="text-xs text-[#a8bba8] font-mono"></span>
         </div>
       </div>
       <div className="bg-[#243b24] p-4 rounded border border-[#2d4a2d]">
         <p className="text-[10px] text-[#a8bba8] uppercase font-bold mb-1">Multas Evitadas</p>
         <div className="flex justify-between items-end">
-          <span className="text-2xl font-mono font-bold text-bone-white/50">--</span>
-          <span className="text-xs text-[#a8bba8] font-mono">sin datos</span>
+          <span className="text-xl font-mono font-bold text-bone-white/50">Pronto</span>
+          <span className="text-xs text-[#a8bba8] font-mono"></span>
         </div>
       </div>
       <div className="bg-[#243b24] p-4 rounded border border-[#2d4a2d]">
         <p className="text-[10px] text-[#a8bba8] uppercase font-bold mb-1">Certificación</p>
         <div className="flex justify-between items-end">
-          <span className="text-2xl font-mono font-bold text-bone-white/50">0/0</span>
-          <span className="text-xs text-[#a8bba8] font-mono">--</span>
+          <span className="text-xl font-mono font-bold text-bone-white/50">Pronto</span>
+          <span className="text-xs text-[#a8bba8] font-mono"></span>
         </div>
       </div>
       <div className="bg-[#243b24] p-4 rounded border border-[#2d4a2d]">
         <p className="text-[10px] text-[#a8bba8] uppercase font-bold mb-1">Huella CO2e</p>
         <div className="flex justify-between items-end">
-          <span className="text-2xl font-mono font-bold text-bone-white/50">--</span>
-          <TrendingDown className="text-[#a8bba8] w-4 h-4" />
+          <span className="text-xl font-mono font-bold text-bone-white/50">Pronto</span>
         </div>
       </div>
     </div>

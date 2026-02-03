@@ -92,7 +92,7 @@ export default function MapComponent({ onPolygonComplete, onGeoJSONUpload }: Map
     <div className="flex-[2] bg-[#243b24] rounded-lg border border-[#2d4a2d] overflow-hidden flex flex-col relative h-[500px]">
       <div className="p-3 border-b border-[#2d4a2d] flex justify-between items-center bg-[#1a2e1a]">
         <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#f5f5f0]">
-          <Layers className="text-[#fbbf24] w-4 h-4" />
+          <Layers className="text-[#B5CC50] w-4 h-4" />
           Control Geoespacial de Predios
         </div>
         <div className="flex items-center gap-2">
@@ -105,7 +105,7 @@ export default function MapComponent({ onPolygonComplete, onGeoJSONUpload }: Map
           />
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="text-[10px] bg-[#fbbf24] text-black px-2 py-1 rounded hover:bg-[#fcd34d] flex items-center gap-1 transition-all font-bold"
+            className="text-[10px] bg-[#B5CC50] text-black px-2 py-1 rounded hover:bg-[#fcd34d] flex items-center gap-1 transition-all font-bold"
           >
             <Upload className="w-3 h-3" /> Subir GeoJSON
           </button>
@@ -145,11 +145,11 @@ export default function MapComponent({ onPolygonComplete, onGeoJSONUpload }: Map
         />
 
         {points.map((pt, idx) => (
-          !polygon && <CircleMarker key={idx} center={pt} radius={3} pathOptions={{ color: '#fbbf24', fillColor: '#fbbf24', fillOpacity: 1 }} />
+          !polygon && <CircleMarker key={idx} center={pt} radius={3} pathOptions={{ color: '#B5CC50', fillColor: '#B5CC50', fillOpacity: 1 }} />
         ))}
 
         {!polygon && points.length > 1 && (
-            <Polyline positions={points} pathOptions={{ color: '#fbbf24', dashArray: '5, 5' }} />
+            <Polyline positions={points} pathOptions={{ color: '#B5CC50', dashArray: '5, 5' }} />
         )}
 
         {polygon && (

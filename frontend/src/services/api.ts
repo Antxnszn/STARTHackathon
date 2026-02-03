@@ -1,4 +1,4 @@
-import type { Project, ProjectCreateRequest, ProjectListResponse, AnalysisResultResponse } from '../types';
+import type { Project, ProjectCreateRequest, ProjectListResponse, AnalysisResultResponse, EUDRReportResponse } from '../types';
 
 const API_BASE_URL = '/api'; // Using Vite proxy
 
@@ -59,6 +59,15 @@ export const api = {
         return await response.json();
     },
 
+    getReport: async (projectId: string): Promise<EUDRReportResponse> => {
+        const response = await fetch(`${API_BASE_URL}/projects/${projectId}/report`);
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.detail || 'Failed to get report');
+        }
+        return await response.json();
+    },
+
     // Helper to check backend health
     checkHealth: async (): Promise<boolean> => {
         try {
@@ -69,3 +78,4 @@ export const api = {
         }
     }
 };
+

@@ -63,3 +63,42 @@ export interface ProjectCreateRequest {
     commodity_code?: string;
     destination_market?: string;
 }
+
+export interface EUDRReportResponse {
+    submission_type: string;
+    version: string;
+    header: {
+        reference_number: string;
+        operator: {
+            name: string;
+            eori: string;
+            address: string;
+        };
+        destination_market: string;
+    };
+    commodity: {
+        hs_code: string;
+        scientific_name: string;
+        trade_name: string;
+        quantity: {
+            amount: number;
+            unit: string;
+        };
+    };
+    geolocation: Record<string, unknown>;
+    compliance: {
+        deforestation_free_post_2020: boolean;
+        relevant_legislation_check: boolean;
+        audit_metadata: {
+            engine: string;
+            verification_timestamp: string;
+            water_risk_assessment: string;
+            water_risk_score: number;
+            area_hectares: number;
+            deforestation_alerts: number;
+            carbon_footprint_tonnes: number;
+        };
+    };
+    greenpass_reference: string;
+    generated_at: string;
+}
