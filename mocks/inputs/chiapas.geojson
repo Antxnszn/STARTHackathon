@@ -1,0 +1,28 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Zona de Expansión Agrícola (Las Flores/Hopelchén)",
+        "location": "Hopelchén, Campeche, México",
+        "status": "Deforestado / Cambio de Uso de Suelo",
+        "original_ecosystem": "Selva Mediana Subperennifolia",
+        "current_use": "Agricultura Intensiva (Soya/Maíz)",
+        "estimated_area_ha": 150
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-89.605500, 19.158500],
+            [-89.591200, 19.158500],
+            [-89.591200, 19.149500],
+            [-89.605500, 19.149500],
+            [-89.605500, 19.158500]
+          ]
+        ]
+      }
+    }
+  ]
+}

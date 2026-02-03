@@ -1,0 +1,27 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Plaza de la Constitución (Zócalo)",
+        "plot_id": "CDMX-CUAUH-001",
+        "crop": "n/a (Plaza Pública)",
+        "owner": "Gobierno de la Ciudad de México",
+        "area_m2": 46800
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-99.133850, 19.432920],
+            [-99.132560, 19.432920],
+            [-99.132560, 19.432320],
+            [-99.133850, 19.432320],
+            [-99.133850, 19.432920]
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgis/postgis:15-3.3
+    container_name: greenpass-db
+    environment:
+      POSTGRES_USER: greenpass
+      POSTGRES_PASSWORD: hackathon_password
+      POSTGRES_DB: greenpass_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U greenpass -d greenpass_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis for future async tasks (Celery)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: greenpass-redis
+  #   ports:
+  #     - "6379:6379"
+
+volumes:
+  postgres_data:

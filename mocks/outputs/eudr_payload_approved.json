@@ -1,0 +1,58 @@
+{
+  "submission_type": "DDS_IMPORT",
+  "version": "2.1",
+  "header": {
+    "reference_number": "GP-2026-MX-88291",
+    "operator": {
+      "name": "Avocados From Mexico S.A.",
+      "eori": "MX123456789012",
+      "address": "Uruapan, Michoacán, México"
+    },
+    "destination_market": "NL"
+  },
+  "commodity": {
+    "hs_code": "08044000",
+    "scientific_name": "Persea americana",
+    "trade_name": "Hass Avocado",
+    "quantity": {
+      "amount": 18500.50,
+      "unit": "KGM"
+    }
+  },
+  "geolocation": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "plot_id": "MICH-URU-001"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [-102.048215, 19.412301],
+              [-102.052100, 19.412550],
+              [-102.052850, 19.408020],
+              [-102.047500, 19.408100],
+              [-102.048215, 19.412301]
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "compliance": {
+    "deforestation_free_post_2020": true,
+    "relevant_legislation_check": true,
+    "audit_metadata": {
+      "engine": "GreenPass v1.0",
+      "verification_timestamp": "2026-01-15T12:30:00Z",
+      "water_risk_assessment": "APPROVED",
+      "climate_suitability": "SUITABLE",
+      "carbon_footprint_tonnes": 0.0
+    }
+  },
+  "greenpass_reference": "GP-2026-MX-88291",
+  "generated_at": "2026-01-15T12:30:00Z"
+}

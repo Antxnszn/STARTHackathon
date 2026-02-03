@@ -1,0 +1,18 @@
+{
+  "co2e": 1750.0,
+  "co2e_unit": "kg",
+  "co2e_calculation_method": "ar5",
+  "co2e_calculation_origin": "climatiq",
+  "emission_factor": {
+    "id": "land_use_change-forests-type_tropical_rainforest",
+    "name": "Land use change - Forests - Tropical rainforest",
+    "source": "IPCC",
+    "year": 2019
+  },
+  "audit_trail": "enabled",
+  "activity_data": {
+    "area": 3.5,
+    "area_unit": "ha"
+  },
+  "notices": []
+}

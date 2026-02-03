@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-forest-deep text-bone-white font-sans overflow-hidden;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #121f12;
+}
+::-webkit-scrollbar-thumb {
+  background: #2d4a2d;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--amber-alert);
+}
+
+/* Leaflet Dark Mode Filter */
+.dark-map-tiles {
+  filter: invert(100%) hue-rotate(100deg) brightness(95%) contrast(90%);
+  background: #121f12 !important;
+}
+
+.leaflet-container {
+  background: #121f12 !important;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  @apply bg-forest-deep text-bone-white border border-forest-light font-sans !important;
+}
+
+/* Glassmorphism elements */
+.glass-panel {
+  background: rgba(45, 74, 45, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(251, 191, 36, 0.1);
+}
+
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+}
